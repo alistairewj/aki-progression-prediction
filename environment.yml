@@ -1,0 +1,12 @@
+name: mimic
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - jupyterlab
+  - pandas
+  - pandas-gbq
+  - tqdm
+  - seaborn
+  - plotly
+  - matplotlib
