@@ -39,7 +39,7 @@ SELECT
     , a.aki_stage_creat
 
     -- columns which help filter data
-    , DATETIME_SUB(a.charttime, INTERVAL 12 HOUR) AS aki_window_starttime
+    , DATETIME_SUB(a.charttime, INTERVAL 24 HOUR) AS aki_window_starttime
     , a.charttime AS aki_window_endtime
     -- , a.creat
     -- , a.creat_low_past_7day
