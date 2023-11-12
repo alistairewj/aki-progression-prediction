@@ -16,19 +16,23 @@
 -- get the *first* instance of AKI stage >= 1
 with aki_stages as
 (
-  select subject_id
-  , hadm_id
+  select kd.subject_id
+  , kd.hadm_id
   , charttime
   , aki_stage_creat
   , creat
   , creat_low_past_7day
   , creat_low_past_48hr
-  , ROW_NUMBER() OVER (PARTITION BY hadm_id ORDER BY charttime) AS rn
-  from `physionet-data.mimiciv_derived.kdigo_stages`
+  , ROW_NUMBER() OVER (PARTITION BY kd.hadm_id ORDER BY charttime) AS rn
+  FROM `physionet-data.mimiciv_derived.kdigo_stages` kd
+  INNER JOIN `physionet-data.mimiciv_hosp.admissions` adm
+    ON kd.hadm_id = adm.hadm_id
   -- AKI stage creatinine is NULL when no creatinine is assessed
   -- since the table calculates AKI stage for both UO/cr
   WHERE aki_stage_creat IS NOT NULL
   AND aki_stage_creat >= 1
+  -- since kdigo_stages allows for data up to 7 days before hospitalization, we limit to day 1
+  AND kd.charttime >= DATETIME_SUB(adm.admittime, INTERVAL 24 HOUR)
 )
 SELECT 
     adm.subject_id, adm.hadm_id
