@@ -41,7 +41,6 @@ WITH img_contrast AS
             ELSE 0
         END AS with_contrast
         , rd.field_value AS exam_name
-        , order_subtype AS imaging_type
     FROM aki_study.cohort co
     INNER JOIN physionet-data.mimiciv_note.radiology r
         ON co.hadm_id = r.hadm_id
@@ -55,6 +54,5 @@ SELECT hadm_id
     , charttime
     , with_contrast
     , exam_name
-    , imaging_type
 FROM img_contrast
 WHERE with_contrast = 1
