@@ -48,8 +48,8 @@ SELECT co.hadm_id
     , DATETIME_DIFF(co.dischtime, co.admittime, HOUR) AS los_hours
     , DATETIME_DIFF(co.starttime_aki, co.admittime, HOUR) AS starttime_aki_hours
     , co.aki_stage_creat
-    , co.aki_window_starttime
-    , co.aki_window_endtime
+    -- , co.aki_window_starttime
+    -- , co.aki_window_endtime
 
     -- outcome
     , o.outcome
