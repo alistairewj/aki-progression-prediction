@@ -1,4 +1,17 @@
-WITH agg AS
+WITH outcome AS
+(
+    SELECT co.hadm_id
+    , MAX(CASE
+        WHEN o.hadm_id IS NOT NULL THEN 1
+        ELSE 0
+    END) AS outcome
+    FROM aki_study.cohort co
+    LEFT JOIN aki_study.outcome o
+        ON co.hadm_id = o.hadm_id
+        AND o.charttime = co.aki_window_endtime
+    GROUP BY co.hadm_id
+)
+, agg AS
 (
     -- aggregate some tables to the existence of a row 1 or 0
     SELECT co.hadm_id
@@ -32,15 +45,14 @@ WITH agg AS
 )
 SELECT co.hadm_id
     -- cohort derived variables
-    , co.admittime
-    , co.dischtime
-    , co.starttime_aki
+    , DATETIME_DIFF(co.dischtime, co.admittime, HOUR) AS los_hours
+    , DATETIME_DIFF(co.starttime_aki, co.admittime, HOUR) AS starttime_aki_hours
     , co.aki_stage_creat
     , co.aki_window_starttime
     , co.aki_window_endtime
 
     -- outcome
-    -- TODO: add outcome
+    , o.outcome
 
     -- demographics
     , dem.age
@@ -72,6 +84,8 @@ SELECT co.hadm_id
 FROM aki_study.cohort co
 LEFT JOIN agg
     ON co.hadm_id = agg.hadm_id
+LEFT JOIN outcome o
+    ON co.hadm_id = o.hadm_id
 LEFT JOIN aki_study.demographics dem
     ON co.hadm_id = dem.hadm_id
 LEFT JOIN aki_study.lab lab
