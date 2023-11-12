@@ -17,6 +17,7 @@ bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_s
 bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.imaging_order < 3-variables/imaging_order.sql
 bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.lab < 3-variables/lab.sql
 bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.nsaid < 3-variables/nsaid.sql
+bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.outcome < 3-variables/outcome.sql
 bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.sofa < 3-variables/sofa.sql
 bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.transfusion < 3-variables/transfusion.sql
 bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.vasopressor < 3-variables/vasopressor.sql
