@@ -25,4 +25,4 @@ bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_s
 
 
 # merge together the data into a single dataframe
-bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.vitalsign < 4-merge/dataset.sql
+bq query --max_rows=2 --use_legacy_sql=False --replace --destination_table=aki_study.dataset < 4-merge/dataset.sql
