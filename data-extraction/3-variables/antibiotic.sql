@@ -7,5 +7,5 @@ INNER JOIN physionet-data.mimiciv_derived.antibiotic a
     -- starts during the window, or starts before the window and ends after
     AND (
         (a.starttime >= co.aki_window_starttime AND a.starttime <= co.aki_window_endtime)
-        OR (a.starttime <= co.aki_window_starttime AND a.endtime >= co.aki_window_starttime)
+        OR (a.starttime <= co.aki_window_starttime AND a.stoptime >= co.aki_window_starttime)
     )
