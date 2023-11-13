@@ -29,7 +29,7 @@ WITH outcome AS
     LEFT JOIN aki_study.transfusion tr
         ON co.hadm_id = tr.hadm_id
     LEFT JOIN aki_study.contrast ct
-        ON co.hadm_id = tr.hadm_id
+        ON co.hadm_id = ct.hadm_id
     -- medications
     LEFT JOIN aki_study.ace_inhibitor ace
         ON co.hadm_id = ace.hadm_id
